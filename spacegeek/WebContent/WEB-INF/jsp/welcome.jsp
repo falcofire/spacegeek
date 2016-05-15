@@ -2,9 +2,11 @@
 <head>
 <%@include file="/WEB-INF/jsp/meta.jsp" %>
 <title>Spring MVC</title>
-<style type="text/css">
-body {
-}
+<style type="text/javascript">
+	$(document).ready(function() {
+    	$('ul.nav.navbar-nav').find('a[href="' + location.pathname + '"]')
+        .closest('li').addClass('active');
+	})
 </style>
 </head>
 <body>

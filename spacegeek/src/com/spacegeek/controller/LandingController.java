@@ -12,6 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LandingController {
  
+	@RequestMapping("/")
+	public ModelAndView main() {
+		return new ModelAndView("spacegeek");
+	}
+	
 	@RequestMapping("/welcome")
 	public ModelAndView helloWorld() {
  
