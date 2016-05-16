@@ -1,6 +1,7 @@
 <html>
 <head>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel='stylesheet' href='css/bootstrap.min.css'>
 <link rel='stylesheet' href='css/spacegeek.css'>
 <script type='text/javascript' src='js/jquery-2.2.3.min.js'></script>
@@ -10,6 +11,19 @@
     	$('ul.nav.navbar-nav').find('a[href="' + location.pathname.replace('/spacegeek/', '') + '"]')
         .closest('li').addClass('active');
 	})
+</script>
+<script type="text/javascript">
+	function toggleImages() {
+		var imgDivs = document.getElementsByClassName('collapse out');
+		var imgArray = [];
+		var i;
+		for (i=0; i<imgDivs.length; i++) {
+			imgArray[i] = imgDivs[i];
+		}
+		for (i=0; i<imgArray.length; i++) {
+			$(imgArray[i]).collapse('toggle');
+		}
+	}
 </script>
 <script type="text/css">
 body {
