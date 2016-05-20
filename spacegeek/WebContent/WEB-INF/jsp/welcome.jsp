@@ -1,7 +1,7 @@
 <html>
 <head>
 <%@include file="/WEB-INF/jsp/meta.jsp" %>
-<title>Spring MVC</title>
+<title>${title}</title>
 <style type="text/javascript">
 	$(document).ready(function() {
     	$('ul.nav.navbar-nav').find('a[href="' + location.pathname + '"]')

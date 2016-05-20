@@ -40,6 +40,7 @@ public class LandingController {
 		String message = "Welcome to the SpaceX feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:SpaceX");
 		session.setAttribute("tweets", tweets);
+		session.setAttribute("title", "SpaceX");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
 			TweetSorter tS = new TweetSorter();
@@ -59,6 +60,7 @@ public class LandingController {
 		String message = "Welcome to the NASA feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:NASA");
 		session.setAttribute("tweets", tweets);
+		session.setAttribute("title", "NASA");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
 			TweetSorter tS = new TweetSorter();
@@ -78,6 +80,7 @@ public class LandingController {
 		String message = "Welcome to the JPL feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:NASAJPL");
 		session.setAttribute("tweets", tweets);
+		session.setAttribute("title", "JPL");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
 			TweetSorter tS = new TweetSorter();
@@ -97,6 +100,7 @@ public class LandingController {
 		String message = "Welcome to the ESA feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:esa");
 		session.setAttribute("tweets", tweets);
+		session.setAttribute("title", "ESA");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
 			TweetSorter tS = new TweetSorter();
