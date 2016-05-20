@@ -37,6 +37,7 @@ public class TwitterHandler {
 		ArrayList<Map<String,String>> tweets = new ArrayList<Map<String,String>>();
 		Twitter twitter = (new TwitterHandler()).getTwitter();
 	    Query query = new Query(qParam);
+	    query.setCount(27);
 	    QueryResult result = null;
 		try {
 			result = twitter.search(query);
@@ -45,8 +46,11 @@ public class TwitterHandler {
 				for (Status status : result.getTweets()) {
 					twit = new HashMap<String,String>();
 					twit.put("id", String.valueOf(status.getId()));
+					twit.put("ts", String.valueOf(status.getCreatedAt()));
 					twit.put("user", status.getUser().getScreenName());
 					twit.put("text", status.getText());
+					twit.put("favCount", String.valueOf(status.getFavoriteCount()));
+					twit.put("retweets", String.valueOf(status.getRetweetCount()));
 					
 					String imgUrl = "";
 					MediaEntity[] media = status.getMediaEntities();

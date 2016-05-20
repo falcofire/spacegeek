@@ -40,6 +40,16 @@ public class LandingController {
 		String message = "Welcome to the SpaceX feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:SpaceX");
 		session.setAttribute("tweets", tweets);
+		String sortType = (String) request.getParameter("sort");
+		if (sortType != null) {
+			TweetSorter tS = new TweetSorter();
+			if (sortType.equals("recent")) {
+				tS.sortRecent(request, response);
+			}
+			else if (sortType.equals("retweet")) {
+				tS.sortRetweet(request, response);
+			}
+		}
 		return new ModelAndView("welcome", "message", message);
 	}
 	
@@ -49,6 +59,16 @@ public class LandingController {
 		String message = "Welcome to the NASA feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:NASA");
 		session.setAttribute("tweets", tweets);
+		String sortType = (String) request.getParameter("sort");
+		if (sortType != null) {
+			TweetSorter tS = new TweetSorter();
+			if (sortType.equals("recent")) {
+				tS.sortRecent(request, response);
+			}
+			else if (sortType.equals("retweet")) {
+				tS.sortRetweet(request, response);
+			}
+		}
 		return new ModelAndView("welcome", "message", message);
 	}
 	
@@ -58,6 +78,16 @@ public class LandingController {
 		String message = "Welcome to the JPL feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:NASAJPL");
 		session.setAttribute("tweets", tweets);
+		String sortType = (String) request.getParameter("sort");
+		if (sortType != null) {
+			TweetSorter tS = new TweetSorter();
+			if (sortType.equals("recent")) {
+				tS.sortRecent(request, response);
+			}
+			else if (sortType.equals("retweet")) {
+				tS.sortRetweet(request, response);
+			}
+		}
 		return new ModelAndView("welcome", "message", message);
 	}
 	
@@ -67,6 +97,16 @@ public class LandingController {
 		String message = "Welcome to the ESA feed";
 		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:esa");
 		session.setAttribute("tweets", tweets);
+		String sortType = (String) request.getParameter("sort");
+		if (sortType != null) {
+			TweetSorter tS = new TweetSorter();
+			if (sortType.equals("recent")) {
+				tS.sortRecent(request, response);
+			}
+			else if (sortType.equals("retweet")) {
+				tS.sortRetweet(request, response);
+			}
+		}
 		return new ModelAndView("welcome", "message", message);
 	}
 }
