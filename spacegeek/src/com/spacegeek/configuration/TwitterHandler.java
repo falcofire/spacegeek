@@ -1,6 +1,9 @@
 package com.spacegeek.configuration;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import twitter4j.MediaEntity;
@@ -17,12 +20,19 @@ public class TwitterHandler {
 	TwitterFactory tf;
 	TwitterHandler th;
 	public Twitter twitter;
+	private Calendar cal = Calendar.getInstance();
+	private Date today = new Date();
+	private static Date oldest;
+	private static SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
 	
 	public TwitterHandler() {
+		cal.setTime(today);
+		cal.add(Calendar.DATE, -30);
+		oldest = cal.getTime();
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey("YtQOX3RwVARjSS9r2LJmkl9vL")
-		  .setOAuthConsumerSecret("VbvYlVkUsyIMsgeFSc9I4FkDMP7GzkIcT5pvDJ8ZYF2BU0bJmx")
+		  .setOAuthConsumerKey("Sxoo08g0j2LPnGVIz3dYiYQPS")
+		  .setOAuthConsumerSecret("aUlfvro1Qq5CizPzCmAnMyWXRCD3G7tClnWWom5Me99SHGKNZ4")
 		  .setOAuthAccessToken("4520336956-1FOcSE6BxCQIToJP0J3xyVW1TNQQU53btK0D6AE")
 		  .setOAuthAccessTokenSecret("m2nAbx7KuqCA67ATiUQTsAFQYBWHYz3TyaMVqlbGaFebP");
 		TwitterFactory tf = new TwitterFactory(cb.build());
@@ -38,6 +48,9 @@ public class TwitterHandler {
 		Twitter twitter = (new TwitterHandler()).getTwitter();
 	    Query query = new Query(qParam);
 	    query.setCount(27);
+	    String dateString = df.format(oldest);
+	    query.since(dateString);
+	    query.setSince(dateString);
 	    QueryResult result = null;
 		try {
 			result = twitter.search(query);

@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel='stylesheet' href='css/bootstrap.min.css'>
+<link rel='stylesheet' href='css/bootstrap-theme.min.css'>
 <link rel='stylesheet' href='css/spacegeek.css'>
 <script type='text/javascript' src='js/jquery-2.2.3.min.js'></script>
 <script type='text/javascript' src='js/bootstrap.min.js'></script>
@@ -10,10 +11,26 @@
 	$(document).ready(function() {
     	$('ul.nav.navbar-nav').find('a[href="' + location.pathname.replace('/spacegeek/', '') + '"]')
         .closest('li').addClass('active');
+    	var toggle = "show";
+    	$('#toggleImages').on('click', function() {
+    		var imgDivs = document.getElementsByClassName('collapse out');
+    		var imgArray = [];
+    		var i = 0;
+    		var j = 0;
+    		for (i=0; i<imgDivs.length; i++) {
+    			imgArray[i] = imgDivs[i];
+    		}
+   			for (i=0; i<imgArray.length; i++) {
+    			$(imgArray[i]).collapse(toggle);
+       		}
+   			toggle = (toggle == "show") ? "hide" : "show";
+    	});
 	})
 </script>
 <script type="text/javascript">
-	function toggleImages() {
+	function toggleImages(action) {
+		alert('action: ' + action);
+		var toggleButton = document.getElementById('toggleImages');
 		var imgDivs = document.getElementsByClassName('collapse out');
 		var imgArray = [];
 		var i;
@@ -21,14 +38,15 @@
 			imgArray[i] = imgDivs[i];
 		}
 		for (i=0; i<imgArray.length; i++) {
-			$(imgArray[i]).collapse('toggle');
+			$(imgArray[i]).collapse(action);
+		}
+		if (action == "show") {
+			alert('true');
+			$("#toggleButton").attr('onclick', '');
+		} else {
+			$("#toggleButton").attr('onclick', '');
 		}
 	}
-</script>
-<script type="text/css">
-body {
-	background-image:url('/spacegeek/images/snail.jpg');
-}
 </script>
 </head>
 <body>

@@ -38,7 +38,7 @@ public class LandingController {
 	public ModelAndView spaceX(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String message = "Welcome to the SpaceX feed";
-		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:SpaceX");
+		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:spacex");
 		session.setAttribute("tweets", tweets);
 		session.setAttribute("title", "SpaceX");
 		String sortType = (String) request.getParameter("sort");
