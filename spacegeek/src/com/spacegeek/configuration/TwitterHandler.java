@@ -47,7 +47,7 @@ public class TwitterHandler {
 		ArrayList<Map<String,String>> tweets = new ArrayList<Map<String,String>>();
 		Twitter twitter = (new TwitterHandler()).getTwitter();
 	    Query query = new Query(qParam);
-	    query.setCount(27);
+	    query.setCount(30);
 	    String dateString = df.format(oldest);
 	    query.since(dateString);
 	    query.setSince(dateString);

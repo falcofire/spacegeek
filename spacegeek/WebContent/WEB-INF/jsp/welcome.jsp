@@ -47,9 +47,6 @@
 	            <div class="modal-body">
 	                <a href="" target="_blank" id="img-link"><img id="modal-img" class="img-responsive" src=""></a>
 	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	            </div>
 	        </div>
 	    </div>
 	</div>
@@ -57,59 +54,63 @@
 		<table class="table table-bordered">
 			<c:forEach var="t" items="${tweets}" varStatus="status" end="${fn:length(tweets)}" step="3">
 				<div class="row">
-					<div class="col-md-4 col-md-offset-0">
-						<div class="container-fluid">
-							<div class="feedElement">
-								<b>${tweets[status.index].user}</b> - ${tweets[status.index].ts } - RT: <b>${tweets[status.index].retweets}x</b>
-								<p>${tweets[status.index].text}</p>
-								<c:if test="${not empty tweets[status.index].imgUrl }">
-									<div class="text-center">
-										<a data-toggle="collapse" data-target="${ '#' += status.index}">Image [+/-]</a>
-										<div id="${status.index}" class="collapse out">
-											<img src="${tweets[status.index].imgUrl}" class="img-responsive">
-											<br>
+					<c:if test="${tweets[status.index] != null}">
+						<div class="col-md-4 col-md-offset-0">
+							<div class="container-fluid">
+								<div class="feedElement">
+									<b>${tweets[status.index].user}</b> - ${tweets[status.index].ts } - RT: <b>${tweets[status.index].retweets}x</b>
+									<p>${tweets[status.index].text}</p>
+									<c:if test="${not empty tweets[status.index].imgUrl }">
+										<div class="text-center">
+											<a data-toggle="collapse" data-target="${ '#' += status.index}">Image [+/-]</a>
+											<div id="${status.index}" class="collapse out">
+												<img src="${tweets[status.index].imgUrl}" class="img-responsive">
+												<br>
+											</div>
 										</div>
-									</div>
-								</c:if>
+									</c:if>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4 col-md-offset-0">
-						<div class="container-fluid">
-							<div class="feedElement">
-								<b>${tweets[status.index+1].user}</b> - ${tweets[status.index+1].ts }  - RT: <b>${tweets[status.index+1].retweets}x</b>
-								<p>${tweets[status.index+1].text}</p>
-								<c:if test="${not empty tweets[status.index+1].imgUrl }">
-									<div class="text-center">
-										<a data-toggle="collapse" data-target="${ '#' += status.index+1}">Image [+/-]</a>
-										<div id="${status.index+1}" class="collapse out">
-											<a target="_blank" href="${tweets[status.index+1].imgUrl}"><img src="${tweets[status.index+1].imgUrl}" class="img-responsive"></a>
-											<br>
+					</c:if>
+					<c:if test="${tweets[status.index+1] != null}">
+						<div class="col-md-4 col-md-offset-0">
+							<div class="container-fluid">
+								<div class="feedElement">
+									<b>${tweets[status.index+1].user}</b> - ${tweets[status.index+1].ts }  - RT: <b>${tweets[status.index+1].retweets}x</b>
+									<p>${tweets[status.index+1].text}</p>
+									<c:if test="${not empty tweets[status.index+1].imgUrl }">
+										<div class="text-center">
+											<a data-toggle="collapse" data-target="${ '#' += status.index+1}">Image [+/-]</a>
+											<div id="${status.index+1}" class="collapse out">
+												<img src="${tweets[status.index+1].imgUrl}" class="img-responsive">
+												<br>
+											</div>
 										</div>
-									</div>
-								</c:if>
+									</c:if>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4 col-md-offset-0"">
-						<div class="container-fluid">
-							<div class="feedElement">
-								<b>${tweets[status.index+2].user}</b> - ${tweets[status.index+2].ts } - RT: <b>${tweets[status.index+2].retweets}x</b>
-								<p>${tweets[status.index+2].text}</p>
-								<c:if test="${not empty tweets[status.index+2].imgUrl }">
-									<div class="text-center">
-										<a data-toggle="collapse" data-target="${ '#' += status.index+2}">Image [+/-]</a>
-										<div>
+					</c:if>
+					<c:if test="${tweets[status.index+2] != null}">
+						<div class="col-md-4 col-md-offset-0">
+							<div class="container-fluid">
+								<div class="feedElement">
+									<b>${tweets[status.index+2].user}</b> - ${tweets[status.index+2].ts } - RT: <b>${tweets[status.index+2].retweets}x</b>
+									<p>${tweets[status.index+2].text}</p>
+									<c:if test="${not empty tweets[status.index+2].imgUrl }">
+										<div class="text-center">
+											<a data-toggle="collapse" data-target="${ '#' += status.index+2}">Image [+/-]</a>
+											<div id="${status.index+2}" class="collapse out">
+												<img src="${tweets[status.index+2].imgUrl}" class="img-responsive">
+												<br>
+											</div>
 										</div>
-										<div id="${status.index+2}" class="collapse out">
-											<a target="_blank" href="${tweets[status.index+2].imgUrl}"><img src="${tweets[status.index+2].imgUrl}" class="img-responsive"></a>
-											<br>
-										</div>
-									</div>
-								</c:if>
-							</div>
-						</div>  
-					</div>
+									</c:if>
+								</div>
+							</div>  
+						</div>
+					</c:if>
 					<br>
 				</div>
 			</c:forEach>
