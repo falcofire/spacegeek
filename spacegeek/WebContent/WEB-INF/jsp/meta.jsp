@@ -4,7 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel='stylesheet' href='css/bootstrap.min.css'>
 <link rel='stylesheet' href='css/bootstrap-theme.min.css'>
-<link rel='stylesheet' href='css/spacegeek.css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/css/spacegeek.css'>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico" />
 <script type='text/javascript' src='js/jquery-2.2.3.min.js'></script>
 <script type='text/javascript' src='js/bootstrap.min.js'></script>
 <script>
@@ -25,32 +26,16 @@
        		}
    			toggle = (toggle == "show") ? "hide" : "show";
     	});
+    	$('.img-responsive').on('click', function(e) {
+		    $("#modal-img").attr("src", this.src);
+		    $("#img-link").attr("href", this.src);
+		    $('#imgModal').modal('show');
+		});
 	})
-</script>
-<script type="text/javascript">
-	function toggleImages(action) {
-		alert('action: ' + action);
-		var toggleButton = document.getElementById('toggleImages');
-		var imgDivs = document.getElementsByClassName('collapse out');
-		var imgArray = [];
-		var i;
-		for (i=0; i<imgDivs.length; i++) {
-			imgArray[i] = imgDivs[i];
-		}
-		for (i=0; i<imgArray.length; i++) {
-			$(imgArray[i]).collapse(action);
-		}
-		if (action == "show") {
-			alert('true');
-			$("#toggleButton").attr('onclick', '');
-		} else {
-			$("#toggleButton").attr('onclick', '');
-		}
-	}
 </script>
 </head>
 <body>
-	<nav class="nav navbar-default">
+	<nav class="nav navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/spacegeek">SpaceGeek</a>
@@ -64,6 +49,7 @@
 	      	<div class="collapse navbar-collapse">
 	      		<ul class="nav navbar-nav navbar-left">
 	      			<li role="presentation"><a href="spaceX">SpaceX</a></li>
+	      			<li role="presentation"><a href="iss">ISS</a></li>
 	      			<li role="presentation"><a href="nasa">NASA</a></li>
 	      			<li role="presentation"><a href="jpl">JPL</a></li>
 	      			<li role="presentation"><a href="esa">ESA</a></li>
