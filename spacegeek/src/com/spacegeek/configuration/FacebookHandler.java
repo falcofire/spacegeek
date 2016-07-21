@@ -3,6 +3,8 @@ package com.spacegeek.configuration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +37,9 @@ public class FacebookHandler {
 	public static AccessToken accessToken = null;
 	public static String code = "";
 	public static Boolean isAuthenticated = false;
+	
+	private static Pattern pattern = Pattern.compile("http://\\S+");
+	private static Matcher matcher;
 	
 	public FacebookHandler() {
 	}
@@ -74,6 +79,13 @@ public class FacebookHandler {
 			story.put("text", post.getMessage());
 			if (post.getSharesCount() != null) {
 				story.put("shares", post.getSharesCount().toString());
+			}
+			if (post.getMessage().contains("http://")) {
+				Matcher matcher = pattern.matcher(post.getMessage());
+				if (matcher.find()) {
+					String url = matcher.group();
+					story.put("text", post.getMessage().replaceAll(matcher.group(), "<a target=\"_blank\" href=\"" + matcher.group() + "\">" + matcher.group() + "</a>"));
+				}
 			}
 			if (post.getType() != null) {
 				if (post.getType().equals("photo") || post.getType().equals("link")) {

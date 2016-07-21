@@ -44,17 +44,12 @@ public class TwitterHandler {
 		twitter = tf.getInstance();
 	}
 	
-	public Twitter getTwitter() {
-		return this.twitter;
-	}
-	
 	/**
 	 * Gets tweets for the given query
 	 * @param qParam
 	 * @return ArrayList<Map<String,String>> of parsed tweets
 	 */
 	public static ArrayList<Map<String,String>> getStories(String qParam) {
-		twitter = (new TwitterHandler()).getTwitter();
 	    Query query = new Query(qParam);
 	    query.setCount(30);
 	    String dateString = df.format(oldest);
@@ -69,7 +64,6 @@ public class TwitterHandler {
 	 * @return ArrayList<Map<String,String>> of parsed tweets
 	 */
 	public static ArrayList<Map<String,String>> getTopStories(ArrayList<String> accounts) {
-		twitter = (new TwitterHandler()).getTwitter();
 		ArrayList<Map<String,String>> tweets = new ArrayList<Map<String,String>>();
 		Query query = new Query();
 		for (String account : accounts) {

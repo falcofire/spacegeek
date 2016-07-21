@@ -25,6 +25,8 @@ public class HomeController {
 		accounts.add("from:NASAJPL");
 		accounts.add("from:esa");
 		
+		TwitterHandler twitter = new TwitterHandler();
+		
 		//Get the Facebook auth code from the request.
 		String code = request.getParameter("code");
 		if (code != null) {
