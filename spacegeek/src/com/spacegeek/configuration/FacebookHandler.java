@@ -38,7 +38,7 @@ public class FacebookHandler {
 	public static String code = "";
 	public static Boolean isAuthenticated = false;
 	
-	private static Pattern pattern = Pattern.compile("http://\\S+");
+	private static Pattern pattern = Pattern.compile("http[s]?://\\S+");
 	private static Matcher matcher;
 	
 	public FacebookHandler() {
@@ -80,10 +80,9 @@ public class FacebookHandler {
 			if (post.getSharesCount() != null) {
 				story.put("shares", post.getSharesCount().toString());
 			}
-			if (post.getMessage().contains("http://")) {
-				Matcher matcher = pattern.matcher(post.getMessage());
+			if (post.getMessage() != null && post.getMessage().contains("http")) {
+				matcher = pattern.matcher(post.getMessage());
 				if (matcher.find()) {
-					String url = matcher.group();
 					story.put("text", post.getMessage().replaceAll(matcher.group(), "<a target=\"_blank\" href=\"" + matcher.group() + "\">" + matcher.group() + "</a>"));
 				}
 			}

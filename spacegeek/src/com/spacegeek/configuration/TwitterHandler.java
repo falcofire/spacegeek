@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import twitter4j.MediaEntity;
 import twitter4j.Query;
 import twitter4j.Query.ResultType;
@@ -26,6 +29,9 @@ public class TwitterHandler {
 	private Date today = new Date();
 	private static Date oldest;
 	private static SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+	
+	private static Pattern pattern = Pattern.compile("http[s]?://\\S+");
+	private static Matcher matcher;
 	
 	/**
 	 * Creates the Twitter configuration builder
@@ -99,13 +105,18 @@ public class TwitterHandler {
 				twit.put("text", status.getText());
 				twit.put("favCount", String.valueOf(status.getFavoriteCount()));
 				twit.put("retweets", String.valueOf(status.getRetweetCount()));
-				if (status.getURLEntities() != null) {
+				if (status.getURLEntities().length > 0) {
 					for (URLEntity link : status.getURLEntities()) {
 						twit.put(link.getURL(), link.getExpandedURL());
 						String textWithLinks = twit.get("text");
 						String url = link.getURL();
 						textWithLinks = textWithLinks.replaceAll(url, "<a target=\"_blank\" href=\"" + link.getExpandedURL() + "\">" + link.getURL() + "</a>");
 						twit.put("text", textWithLinks);
+					}
+				} else if (status.getText().contains("http")) {
+					matcher = pattern.matcher(status.getText());
+					if (matcher.find()) {
+						twit.put("text", status.getText().replaceAll(matcher.group(), "<a target=\"_blank\" href=\"" + matcher.group() + "\">" + matcher.group() + "</a>"));
 					}
 				}
 				
