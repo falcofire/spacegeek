@@ -98,6 +98,7 @@ public class TwitterHandler {
 			Map<String, String> twit;
 			for (Status status : result.getTweets()) {
 				twit = new HashMap<String,String>();
+				twit.put("type", "tweet");
 				twit.put("id", String.valueOf(status.getId()));
 				twit.put("ts", String.valueOf(status.getCreatedAt()));
 				twit.put("user", status.getUser().getScreenName());

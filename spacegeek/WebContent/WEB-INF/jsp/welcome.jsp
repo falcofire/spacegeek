@@ -20,12 +20,18 @@
 					<div class="btn-group">
 						<br>
 						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Sort By <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu">
-						    <li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=recent">Most Recent</a></li>
-						    <li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=retweet">Most Retweeted</a></li>
-						  </ul>
+						    Sort / Filter <span class="caret"></span>
+					  	</button>
+					  	<ul class="dropdown-menu">
+					  		<li class="dropdown-header">Sort</li>
+					    	<li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=recent">Most Recent</a></li>
+						    <li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=popular">Most Popular</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li class="dropdown-header">Filter</li>
+						    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;All</a></li>
+						    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;Facebook</a></li>
+						    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;Twitter</a></li>
+					  	</ul>
 						<button id="toggleImages" class="btn btn-default btn-sm" type="submit">Show/Hide images</button>
 					</div>
 				</div>
@@ -35,22 +41,38 @@
 	<%@include file="/WEB-INF/jsp/imgModal.jsp" %>
 	<div class="container">
 		<c:choose>
-			<c:when test="${tweets[0] != null}">
+			<c:when test="${posts[0] != null}">
 				<table class="table table-bordered">
-					<c:forEach var="t" items="${tweets}" varStatus="status" end="${fn:length(tweets)}" step="3">
+					<c:forEach var="t" items="${posts}" varStatus="status" end="${fn:length(posts)}" step="3">
 						<div class="row">
-							<c:if test="${tweets[status.index] != null}">
+							<c:if test="${posts[status.index] != null}">
 								<div class="col-md-4 col-md-offset-0">
 									<div class="container-fluid">
 										<div class="feedElement">
-											<b>${tweets[status.index].user}</b> - ${tweets[status.index].ts } - RT: <b>${tweets[status.index].retweets}x</b>
-											<p>${tweets[status.index].text}</p>
-											<c:if test="${not empty tweets[status.index].imgUrl }">
+											<b>${posts[status.index].user}</b> - ${posts[status.index].ts } 
+											<c:choose>
+												<c:when test="${posts[status.index].type == 'tweet'}">
+												<br/>
+												RT: <b>${posts[status.index].retweets}x</b></c:when>
+												<c:when test="${posts[status.index].type == 'fb'}">
+												<br/>
+												Shares: <b>${posts[status.index].shares}</b></c:when>
+											</c:choose>
+											<p>${posts[status.index].text}</p>
+											<c:if test="${not empty posts[status.index].imgUrl }">
 												<div class="text-center">
 													<a data-toggle="collapse" data-target="${ '#' += status.index}">Image [+/-]</a>
 													<div id="${status.index}" class="collapse out">
-														<img src="${tweets[status.index].imgUrl}" class="img-responsive">
+														<img src="${posts[status.index].imgUrl}" class="img-responsive">
 														<br>
+													</div>
+												</div>
+											</c:if>
+											<c:if test="${not empty posts[status.index].videoSource}">
+												<div class="text-center">
+													<a data-toggle="collapse" data-target="${ '#' += status.index}">Video [+/-]</a>
+													<div id="${status.index}" class="collapse out">
+														
 													</div>
 												</div>
 											</c:if>
@@ -58,18 +80,34 @@
 									</div>
 								</div>
 							</c:if>
-							<c:if test="${tweets[status.index+1] != null}">
+							<c:if test="${posts[status.index+1] != null}">
 								<div class="col-md-4 col-md-offset-0">
 									<div class="container-fluid">
 										<div class="feedElement">
-											<b>${tweets[status.index+1].user}</b> - ${tweets[status.index+1].ts }  - RT: <b>${tweets[status.index+1].retweets}x</b>
-											<p>${tweets[status.index+1].text}</p>
-											<c:if test="${not empty tweets[status.index+1].imgUrl }">
+											<b>${posts[status.index+1].user}</b> - ${posts[status.index+1].ts } 
+											<c:choose>
+												<c:when test="${posts[status.index+1].type == 'tweet'}">
+												<br/>
+												RT: <b>${posts[status.index+1].retweets}x</b></c:when>
+												<c:when test="${posts[status.index+1].type == 'fb'}">
+												<br/>
+												Shares: <b>${posts[status.index+1].shares}</b></c:when>
+											</c:choose>
+											<p>${posts[status.index+1].text}</p>
+											<c:if test="${not empty posts[status.index+1].imgUrl }">
 												<div class="text-center">
 													<a data-toggle="collapse" data-target="${ '#' += status.index+1}">Image [+/-]</a>
 													<div id="${status.index+1}" class="collapse out">
-														<img src="${tweets[status.index+1].imgUrl}" class="img-responsive">
+														<img src="${posts[status.index+1].imgUrl}" class="img-responsive">
 														<br>
+													</div>
+												</div>
+											</c:if>
+											<c:if test="${not empty posts[status.index+1].videoSource}">
+												<div class="text-center">
+													<a data-toggle="collapse" data-target="${ '#' += status.index+1}">Video [+/-]</a>
+													<div id="${status.index+1}" class="collapse out">
+														
 													</div>
 												</div>
 											</c:if>
@@ -77,23 +115,39 @@
 									</div>
 								</div>
 							</c:if>
-							<c:if test="${tweets[status.index+2] != null}">
+							<c:if test="${posts[status.index+2] != null}">
 								<div class="col-md-4 col-md-offset-0">
 									<div class="container-fluid">
 										<div class="feedElement">
-											<b>${tweets[status.index+2].user}</b> - ${tweets[status.index+2].ts } - RT: <b>${tweets[status.index+2].retweets}x</b>
-											<p>${tweets[status.index+2].text}</p>
-											<c:if test="${not empty tweets[status.index+2].imgUrl }">
+											<b>${posts[status.index+2].user}</b> - ${posts[status.index+2].ts } 
+											<c:choose>
+												<c:when test="${posts[status.index+2].type == 'tweet'}">
+												<br/>
+												RT: <b>${posts[status.index+2].retweets}x</b></c:when>
+												<c:when test="${posts[status.index+2].type == 'fb'}">
+												<br/>
+												Shares: <b>${posts[status.index+2].shares}</b></c:when>
+											</c:choose>
+											<p>${posts[status.index+2].text}</p>
+											<c:if test="${not empty posts[status.index+2].imgUrl }">
 												<div class="text-center">
 													<a data-toggle="collapse" data-target="${ '#' += status.index+2}">Image [+/-]</a>
 													<div id="${status.index+2}" class="collapse out">
-														<img src="${tweets[status.index+2].imgUrl}" class="img-responsive">
+														<img src="${posts[status.index+2].imgUrl}" class="img-responsive">
 														<br>
 													</div>
 												</div>
 											</c:if>
+											<c:if test="${not empty posts[status.index+2].videoSource}">
+												<div class="text-center">
+													<a data-toggle="collapse" data-target="${ '#' += status.index+2}">Video [+/-]</a>
+													<div id="${status.index+2}" class="collapse out">
+														
+													</div>
+												</div>
+											</c:if>
 										</div>
-									</div>  
+									</div>
 								</div>
 							</c:if>
 							<br>

@@ -1,10 +1,11 @@
 package com.spacegeek.controller;
 
-import com.spacegeek.configuration.TwitterHandler;
+import com.spacegeek.configuration.FacebookHandler;
+import com.spacegeek.configuration.StoryAggregator;
+import com.spacegeek.controller.AggregateSorter;
 
 import java.util.ArrayList;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,20 +22,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LandingController {
 	
-	@RequestMapping("/welcome")
-	public ModelAndView helloWorld() {
- 
-		String message = "<br><div style='text-align:center;'>"
-				+ "<h3>********** Hello World, Spring MVC Tutorial</h3>This message is coming from LandingController .java **********</div><br><br>";
-		return new ModelAndView("welcome", "account", message);
-	}
+	AggregateSorter aggSort = new AggregateSorter();
+	FacebookHandler fHandler = new FacebookHandler();
+	StoryAggregator storyAgg = new StoryAggregator();
 	
 	@RequestMapping("/esa")
 	public ModelAndView esa(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "ESA";
-		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:esa");
-		session.setAttribute("tweets", tweets);
+		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
+		posts = storyAgg.getCombinedStories("esa");
+		session.setAttribute("posts", posts);
 		session.setAttribute("title", "ESA");
 		session.setAttribute("background", "esa.jpg");
 		String sortType = (String) request.getParameter("sort");
@@ -54,8 +52,9 @@ public class LandingController {
 	public ModelAndView iss(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "ISS";
-		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:Space_Station");
-		session.setAttribute("tweets", tweets);
+		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
+		posts = storyAgg.getCombinedStories("iss");
+		session.setAttribute("posts", posts);
 		session.setAttribute("title", "ISS");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
@@ -74,8 +73,9 @@ public class LandingController {
 	public ModelAndView jpl(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "JPL";
-		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:NASAJPL");
-		session.setAttribute("tweets", tweets);
+		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
+		posts = storyAgg.getCombinedStories("NASAJPL");
+		session.setAttribute("posts", posts);
 		session.setAttribute("title", "JPL");
 		session.setAttribute("background", "jpl.jpg");
 		String sortType = (String) request.getParameter("sort");
@@ -95,17 +95,17 @@ public class LandingController {
 	public ModelAndView nasa(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "NASA";
-		ArrayList<Map<String,String>> tweets = new ArrayList<Map<String,String>>();
-		tweets = TwitterHandler.getStories("from:NASA");
-		session.removeAttribute("tweets");
-		session.setAttribute("tweets", tweets);
+		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
+		posts = storyAgg.getCombinedStories("nasa");
+		session.removeAttribute("posts");
+		session.setAttribute("posts", posts);
 		session.setAttribute("title", "NASA");
 		session.setAttribute("background", "nasa.png");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
 			TweetSorter tS = new TweetSorter();
 			if (sortType.equals("recent")) {
-				tS.sortRecent(request, response);
+				aggSort.sortRecent(request, response);
 			}
 			else if (sortType.equals("retweet")) {
 				tS.sortRetweet(request, response);
@@ -118,8 +118,9 @@ public class LandingController {
 	public ModelAndView spaceX(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "SpaceX";
-		ArrayList<Map<String,String>> tweets = TwitterHandler.getStories("from:spacex");
-		session.setAttribute("tweets", tweets);
+		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
+		posts = storyAgg.getCombinedStories("spacex");
+		session.setAttribute("posts", posts);
 		session.setAttribute("title", "SpaceX");
 		session.setAttribute("background", "spacex.jpg");
 		String sortType = (String) request.getParameter("sort");
