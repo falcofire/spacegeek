@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
+import facebook4j.Photo;
 import facebook4j.Post;
 import facebook4j.Reading;
 import facebook4j.ResponseList;
@@ -48,7 +49,7 @@ public class FacebookHandler {
 	@RequestMapping("/facebookLogin")
 	public String facebookLogin(HttpServletRequest request, HttpServletResponse response) {
 		facebook.setOAuthAppId(FB_APP_ID, FB_APP_SECRET);
-		facebook.setOAuthPermissions("email, publish_actions, publish_stream");
+		facebook.setOAuthPermissions("user_likes, user_photos, user_subscriptions, user_status, user_videos");
 		String redirectUrl = request.getScheme() + "://www.facebook.com/dialog/oauth?client_id=" + FB_APP_ID + "&redirect_uri=" + REDIRECT_URI;
 		return "redirect:" + redirectUrl;
 	}
@@ -66,7 +67,7 @@ public class FacebookHandler {
 	}
 	
 	public static ArrayList<Map<String,String>> getUserFeed(String userId) throws FacebookException {
-		ResponseList<Post> feeds = facebook.getPosts(userId, new Reading().limit(25));
+		ResponseList<Post> feeds = facebook.getPosts(userId, new Reading().limit(25).fields("likes, comments, shares, source, object_id, created_time, link, message, type, picture"));
 		ArrayList<Map<String,String>> fbStories = new ArrayList<Map<String,String>>();
 		User user = facebook.getUser(userId);
 		Map<String,String> story;
@@ -87,8 +88,11 @@ public class FacebookHandler {
 				}
 			}
 			if (post.getType() != null) {
-				if (post.getType().equals("photo") || post.getType().equals("link")) {
-					story.put("imgUrl", post.getPicture().toString());
+				if (post.getType().equals("photo")) {
+					String objId = post.getObjectId();
+					Photo photo = facebook.getPhoto(objId, new Reading().limit(1).fields("link, picture, source"));
+					String photoLink = photo.getSource().toString();
+					story.put("imgUrl", photoLink);
 					
 				} else if (post.getType().equals("video")) {
 					story.put("videoSource", post.getSource().toString());
