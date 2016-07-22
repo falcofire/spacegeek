@@ -19,20 +19,43 @@
 				<div class="pull-right">
 					<div class="btn-group">
 						<br>
-						<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Sort / Filter <span class="caret"></span>
-					  	</button>
-					  	<ul class="dropdown-menu">
-					  		<li class="dropdown-header">Sort</li>
-					    	<li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=recent">Most Recent</a></li>
-						    <li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=popular">Most Popular</a></li>
-						    <li role="separator" class="divider"></li>
-						    <li class="dropdown-header">Filter</li>
-						    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;All</a></li>
-						    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;Facebook</a></li>
-						    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;Twitter</a></li>
-					  	</ul>
-						<button id="toggleImages" class="btn btn-default btn-sm" type="submit">Show/Hide images</button>
+						<span class="dropdown">
+							<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    Sort / Filter <span class="caret"></span>
+						  	</button>
+						  	<ul class="dropdown-menu">
+						  		<li class="dropdown-header"><b>Sort</b></li>
+							    <li role="separator" class="divider"></li>
+						    	<li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=recent">
+						    		<c:choose>
+							    		<c:when test="${param.sort == 'recent' or param.sort == null}">
+							    			<font style="font-weight:bold;">Most Recent</font>
+							    		</c:when>
+							    		<c:otherwise>
+							    			Most Recent
+							    		</c:otherwise>
+						    		</c:choose>
+					    		</a></li>
+							    <li><a href="${requestScope['javax.servlet.forward.request_uri']}?sort=popular">
+							    	<c:choose>
+							    		<c:when test="${param.sort == 'popular'}">
+							    			<font style="font-weight:bold;">Most Popular</font>
+							    		</c:when>
+							    		<c:otherwise>
+							    			Most Popular
+							    		</c:otherwise>
+						    		</c:choose>
+							    </a><br/></li>
+							    <li class="dropdown-header"><b>Filter</b></li>
+							    <li role="separator" class="divider"></li>
+							    <div id="mediaFilters" class="mediaFilters">
+							    	<li style="padding-left:10px;"><input type="checkbox" id="allFilter"/>&nbsp;All</li>
+							    	<li style="padding-left:10px;"><input type="checkbox" id="fbFilter"/>&nbsp;Facebook</li>
+							    	<li style="padding-left:10px;"><input type="checkbox" id="twitterFilter"/>&nbsp;Twitter<br/></li>
+							    </div>
+						  	</ul>
+					  	</span>
+						<button id="toggleImages" class="btn btn-default btn-sm" type="submit" style="float:right;">Show/Hide images</button>
 					</div>
 				</div>
 			</div>
@@ -48,7 +71,7 @@
 							<c:if test="${posts[status.index] != null}">
 								<div class="col-md-4 col-md-offset-0">
 									<div class="container-fluid">
-										<div class="feedElement">
+										<div class="feedElement" name="${posts[status.index].type}">
 											<b>${posts[status.index].user}</b> - ${posts[status.index].ts } 
 											<c:choose>
 												<c:when test="${posts[status.index].type == 'tweet'}">
@@ -83,7 +106,7 @@
 							<c:if test="${posts[status.index+1] != null}">
 								<div class="col-md-4 col-md-offset-0">
 									<div class="container-fluid">
-										<div class="feedElement">
+										<div class="feedElement" name="${posts[status.index+1].type}">
 											<b>${posts[status.index+1].user}</b> - ${posts[status.index+1].ts } 
 											<c:choose>
 												<c:when test="${posts[status.index+1].type == 'tweet'}">
@@ -118,7 +141,7 @@
 							<c:if test="${posts[status.index+2] != null}">
 								<div class="col-md-4 col-md-offset-0">
 									<div class="container-fluid">
-										<div class="feedElement">
+										<div class="feedElement" name="${posts[status.index+2].type}">
 											<b>${posts[status.index+2].user}</b> - ${posts[status.index+2].ts } 
 											<c:choose>
 												<c:when test="${posts[status.index+2].type == 'tweet'}">

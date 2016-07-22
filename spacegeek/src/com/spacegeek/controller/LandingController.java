@@ -37,12 +37,11 @@ public class LandingController {
 		session.setAttribute("background", "esa.jpg");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
-			TweetSorter tS = new TweetSorter();
 			if (sortType.equals("recent")) {
-				tS.sortRecent(request, response);
+				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
-			else if (sortType.equals("retweet")) {
-				tS.sortRetweet(request, response);
+			else if (sortType.equals("popular")) {
+				session.setAttribute("posts", storyAgg.sortPopular(posts));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -58,12 +57,11 @@ public class LandingController {
 		session.setAttribute("title", "ISS");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
-			TweetSorter tS = new TweetSorter();
 			if (sortType.equals("recent")) {
-				tS.sortRecent(request, response);
+				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
-			else if (sortType.equals("retweet")) {
-				tS.sortRetweet(request, response);
+			else if (sortType.equals("popular")) {
+				session.setAttribute("posts", storyAgg.sortPopular(posts));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -80,12 +78,11 @@ public class LandingController {
 		session.setAttribute("background", "jpl.jpg");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
-			TweetSorter tS = new TweetSorter();
 			if (sortType.equals("recent")) {
-				tS.sortRecent(request, response);
+				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
-			else if (sortType.equals("retweet")) {
-				tS.sortRetweet(request, response);
+			else if (sortType.equals("popular")) {
+				session.setAttribute("posts", storyAgg.sortPopular(posts));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -103,12 +100,11 @@ public class LandingController {
 		session.setAttribute("background", "nasa.png");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
-			TweetSorter tS = new TweetSorter();
 			if (sortType.equals("recent")) {
-				aggSort.sortRecent(request, response);
+				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
-			else if (sortType.equals("retweet")) {
-				tS.sortRetweet(request, response);
+			else if (sortType.equals("popular")) {
+				session.setAttribute("posts", storyAgg.sortPopular(posts));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -125,12 +121,11 @@ public class LandingController {
 		session.setAttribute("background", "spacex.jpg");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
-			TweetSorter tS = new TweetSorter();
 			if (sortType.equals("recent")) {
-				tS.sortRecent(request, response);
+				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
-			else if (sortType.equals("retweet")) {
-				tS.sortRetweet(request, response);
+			else if (sortType.equals("popular")) {
+				session.setAttribute("posts", storyAgg.sortPopular(posts));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);

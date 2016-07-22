@@ -31,6 +31,74 @@
 		    $("#img-link").attr("href", this.src);
 		    $('#imgModal').modal('show');
 		});
+    	$('#allFilter, #fbFilter, #twitterFilter').on('click', function(e) {
+    		var checked = $(this).is(':checked');
+    		var filter = $(this).attr('id');
+			var posts = document.getElementsByClassName("feedElement");
+    		if (filter == "allFilter" && checked) {
+    			$('#fbFilter').prop('checked', true);
+        		$('#fbFilter').attr('disabled', true);
+        		$('#twitterFilter').prop('checked', true);
+        		$('#twitterFilter').attr('disabled', true);
+        		filter = "all";
+        		for (i=0; i<posts.length; i++) {
+    				$(posts[i]).show();
+    			}
+    		} else if (filter == "allFilter") {
+    			$('#fbFilter').prop('checked', false);
+        		$('#fbFilter').attr('disabled', false);
+        		$('#twitterFilter').prop('checked', false);
+        		$('#twitterFilter').attr('disabled', false);
+        		filter = null;
+    		} 
+    		//Facebook filter only
+    		else if ($('#fbFilter').is(':checked') && !$('#twitterFilter').is(':checked')) {
+    			if (checked) {
+    				$('#allFilter').prop('checked', false);
+    			}
+    			var i = 0;
+    			if (checked) {}
+    			for (i=0; i<posts.length; i++) {
+    				if ($(posts[i]).attr('name') != "fb") {
+    					$(posts[i]).hide();
+    				} else {
+    					$(posts[i]).show();
+    				}
+    			}
+   			} 
+    		//Twitter filter only
+    		else if ($('#twitterFilter').is(':checked') && !$('#fbFilter').is(':checked')) {
+   				if (checked) {
+    				$('#allFilter').prop('checked', false);
+    			}
+    			var i = 0;
+    			for (i=0; i<posts.length; i++) {
+    				if ($(posts[i]).attr('name') != "tweet") {
+    					$(posts[i]).hide();
+    				} else {
+    					$(posts[i]).show();
+    				}
+    			}
+   			}
+    		//All feeds checked
+    		else if ($('#twitterFilter').is(':checked') && $('#fbFilter').is(':checked')) {
+    			$('#allFilter').prop('checked', true);
+    			$('#allFilter').attr('disabled', false);
+    			$('#fbFilter').attr('disabled', true);
+    			$('#twitterFilter').attr('disabled', true);
+    			for (i=0; i<posts.length; i++) {
+    				$(posts[i]).show();
+    			}
+    		}
+    		//No feeds checked
+    		else if (!$('#fbFilter').is(':checked') && !$('#twitterFilter').is(':checked')) {
+    			$('#allFilter').prop('checked', true);
+    			for (i=0; i<posts.length; i++) {
+    				$(posts[i]).show();
+    			}
+    		}
+    		
+    	});
 	})
 </script>
 </head>

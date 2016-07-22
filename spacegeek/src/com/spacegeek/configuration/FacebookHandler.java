@@ -60,7 +60,6 @@ public class FacebookHandler {
 				accessToken = facebook.getOAuthAccessToken(code, "http://local.host:8080/spacegeek");
 				isAuthenticated = true;
 			} catch (FacebookException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

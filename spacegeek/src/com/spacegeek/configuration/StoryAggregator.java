@@ -43,4 +43,31 @@ public class StoryAggregator {
 		return combinedStories;
 	}
 	
+	public ArrayList<Map<String,String>> sortPopular(ArrayList<Map<String,String>> posts) {
+		Collections.sort(posts, new Comparator<Map<String,String>>() {
+			@Override
+			public int compare(final Map<String,String> map1, final Map<String,String> map2) {
+				String type1 = map1.get("type");
+				String type2 = map2.get("type");
+				Integer count1 = 0;
+				Integer count2 = 0;
+				if (("fb").equals(type1) && ("fb").equals(type2)) {
+					count1 = Integer.parseInt(map1.get("shares"));
+					count2 = Integer.parseInt(map2.get("shares"));
+				} else if (("fb").equals(type1) && ("tweet").equals(type2)) {
+					count1 = Integer.parseInt(map1.get("shares"));
+					count2 = Integer.parseInt(map2.get("retweets"));
+				} else if (("tweet").equals(type1) && ("fb").equals(type2)) {
+					count1 = Integer.parseInt(map1.get("retweets"));
+					count2 = Integer.parseInt(map2.get("shares"));
+				} else if (("tweet").equals(type1) && ("tweet").equals(type2)) {
+					count1 = Integer.parseInt(map1.get("retweets"));
+					count2 = Integer.parseInt(map2.get("retweets"));
+				}
+				return count2.compareTo(count1);
+			}
+		});
+		return posts;
+	}
+	
 }

@@ -16,6 +16,11 @@ body {
 	padding-top: 50px; 
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
 .feedElement {
 	background:#F8F8F8;
 	border-style:solid;
@@ -32,6 +37,11 @@ body {
     margin-left: auto;
     margin-right: auto; 
     width: /*whatever width you want*/;
+}
+
+.mediaFilters {
+	padding-bottom: 10px;
+	padding-left: 10px;
 }
 
 .middle {
