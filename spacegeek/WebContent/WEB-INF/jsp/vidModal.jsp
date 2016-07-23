@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="imgModal" class="modal fade">
+	<div id="vidModal" class="modal fade">
 		<div class="vertical-alignment-helper">
 			<div class="modal-dialog vertical-align-center">
 		        <div class="modal-content">
 		            <div class="modal-body">
-		                <a href="" target="_blank" id="img-link"><img id="modal-img" class="img-responsive" src=""></a>
+		                <iframe id="video" class="videoFrame" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
 		            </div>
 		        </div>
 		    </div>

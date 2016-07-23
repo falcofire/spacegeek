@@ -31,6 +31,14 @@
 		    $("#img-link").attr("href", this.src);
 		    $('#imgModal').modal('show');
 		});
+    	$('.videoLink').on('click', function(e)	{
+    		$('#video').attr("src", this.id);
+    		$('#vidModal').modal('show');
+    	});
+    	$("#vidModal").on('hidden.bs.modal', function (e) {
+    		alert('closed!');
+    	    $("#vidModal iframe").attr("src", $("#vidModal iframe").attr("src"));
+    	});
     	$('#allFilter, #fbFilter, #twitterFilter').on('click', function(e) {
     		var checked = $(this).is(':checked');
     		var filter = $(this).attr('id');

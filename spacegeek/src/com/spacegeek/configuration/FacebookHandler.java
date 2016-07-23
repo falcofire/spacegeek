@@ -79,6 +79,8 @@ public class FacebookHandler {
 			story.put("text", post.getMessage());
 			if (post.getSharesCount() != null) {
 				story.put("shares", post.getSharesCount().toString());
+			} else {
+				story.put("shares", "0");
 			}
 			if (post.getMessage() != null && post.getMessage().contains("http")) {
 				matcher = pattern.matcher(post.getMessage());

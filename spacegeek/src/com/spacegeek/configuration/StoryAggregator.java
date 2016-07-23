@@ -14,19 +14,25 @@ public class StoryAggregator {
 	
 	SimpleDateFormat df = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy");
 	
-	public ArrayList<Map<String,String>> getCombinedStories(String account) {
-		ArrayList<Map<String,String>> combinedStories = new ArrayList<Map<String,String>>();
+	public ArrayList<ArrayList<Map<String, String>>> getCombinedStories(String account) {
+		ArrayList<ArrayList<Map<String,String>>> combinedStories = new ArrayList<ArrayList<Map<String,String>>>();
+		ArrayList<Map<String,String>> facebookStories = null;
 		try {
-			combinedStories = FacebookHandler.getUserFeed(account);
+			facebookStories = FacebookHandler.getUserFeed(account);
+			combinedStories.add(0, facebookStories);
+			
 		} catch (FacebookException e) {
 			e.printStackTrace();
 		}
 		if (account.equals("iss")) {
 			account = "Space_Station";
 		}
-		combinedStories.addAll(TwitterHandler.getStories("from:" + account));
+		ArrayList<Map<String,String>> twitterStories = TwitterHandler.getStories("from:" + account);
+		combinedStories.add(1, twitterStories);
+		facebookStories.addAll(twitterStories);
+		combinedStories.add(2, facebookStories);
 		
-		Collections.sort(combinedStories, new Comparator<Map<String, String>>() {
+		Collections.sort(combinedStories.get(2), new Comparator<Map<String, String>>() {
 		    @Override
 		    public int compare(final Map<String, String> map1, final Map<String, String> map2) {
 		    	try {

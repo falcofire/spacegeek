@@ -30,9 +30,10 @@ public class LandingController {
 	public ModelAndView esa(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "ESA";
-		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
-		posts = storyAgg.getCombinedStories("esa");
-		session.setAttribute("posts", posts);
+		ArrayList<ArrayList<Map<String,String>>> allStories = storyAgg.getCombinedStories("esa");
+		session.setAttribute("posts", allStories.get(2));
+		session.setAttribute("facebookPosts", allStories.get(0));
+		session.setAttribute("twitterPosts", allStories.get(1));
 		session.setAttribute("title", "ESA");
 		session.setAttribute("background", "esa.jpg");
 		String sortType = (String) request.getParameter("sort");
@@ -41,7 +42,7 @@ public class LandingController {
 				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
 			else if (sortType.equals("popular")) {
-				session.setAttribute("posts", storyAgg.sortPopular(posts));
+				session.setAttribute("posts", storyAgg.sortPopular(allStories.get(2)));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -51,9 +52,10 @@ public class LandingController {
 	public ModelAndView iss(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "ISS";
-		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
-		posts = storyAgg.getCombinedStories("iss");
-		session.setAttribute("posts", posts);
+		ArrayList<ArrayList<Map<String,String>>> allStories = storyAgg.getCombinedStories("iss");
+		session.setAttribute("posts", allStories.get(2));
+		session.setAttribute("facebookPosts", allStories.get(0));
+		session.setAttribute("twitterPosts", allStories.get(1));
 		session.setAttribute("title", "ISS");
 		String sortType = (String) request.getParameter("sort");
 		if (sortType != null) {
@@ -61,7 +63,7 @@ public class LandingController {
 				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
 			else if (sortType.equals("popular")) {
-				session.setAttribute("posts", storyAgg.sortPopular(posts));
+				session.setAttribute("posts", storyAgg.sortPopular(allStories.get(2)));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -71,9 +73,10 @@ public class LandingController {
 	public ModelAndView jpl(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "JPL";
-		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
-		posts = storyAgg.getCombinedStories("NASAJPL");
-		session.setAttribute("posts", posts);
+		ArrayList<ArrayList<Map<String,String>>> allStories = storyAgg.getCombinedStories("NASAJPL");
+		session.setAttribute("posts", allStories.get(2));
+		session.setAttribute("facebookPosts", allStories.get(0));
+		session.setAttribute("twitterPosts", allStories.get(1));
 		session.setAttribute("title", "JPL");
 		session.setAttribute("background", "jpl.jpg");
 		String sortType = (String) request.getParameter("sort");
@@ -82,7 +85,7 @@ public class LandingController {
 				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
 			else if (sortType.equals("popular")) {
-				session.setAttribute("posts", storyAgg.sortPopular(posts));
+				session.setAttribute("posts", storyAgg.sortPopular(allStories.get(2)));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -92,10 +95,10 @@ public class LandingController {
 	public ModelAndView nasa(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "NASA";
-		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
-		posts = storyAgg.getCombinedStories("nasa");
-		session.removeAttribute("posts");
-		session.setAttribute("posts", posts);
+		ArrayList<ArrayList<Map<String,String>>> allStories = storyAgg.getCombinedStories("nasa");
+		session.setAttribute("posts", allStories.get(2));
+		session.setAttribute("facebookPosts", allStories.get(0));
+		session.setAttribute("twitterPosts", allStories.get(1));
 		session.setAttribute("title", "NASA");
 		session.setAttribute("background", "nasa.png");
 		String sortType = (String) request.getParameter("sort");
@@ -104,7 +107,7 @@ public class LandingController {
 				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
 			else if (sortType.equals("popular")) {
-				session.setAttribute("posts", storyAgg.sortPopular(posts));
+				session.setAttribute("posts", storyAgg.sortPopular(allStories.get(2)));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);
@@ -114,9 +117,10 @@ public class LandingController {
 	public ModelAndView spaceX(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		String account = "SpaceX";
-		ArrayList<Map<String,String>> posts = new ArrayList<Map<String,String>>();
-		posts = storyAgg.getCombinedStories("spacex");
-		session.setAttribute("posts", posts);
+		ArrayList<ArrayList<Map<String,String>>> allStories = storyAgg.getCombinedStories("spacex");
+		session.setAttribute("posts", allStories.get(2));
+		session.setAttribute("facebookPosts", allStories.get(0));
+		session.setAttribute("twitterPosts", allStories.get(1));
 		session.setAttribute("title", "SpaceX");
 		session.setAttribute("background", "spacex.jpg");
 		String sortType = (String) request.getParameter("sort");
@@ -125,7 +129,7 @@ public class LandingController {
 				session.setAttribute("posts", storyAgg.getCombinedStories(account));
 			}
 			else if (sortType.equals("popular")) {
-				session.setAttribute("posts", storyAgg.sortPopular(posts));
+				session.setAttribute("posts", storyAgg.sortPopular(allStories.get(2)));
 			}
 		}
 		return new ModelAndView("welcome", "account", account);

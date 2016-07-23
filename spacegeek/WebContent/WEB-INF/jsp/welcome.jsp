@@ -62,6 +62,7 @@
 		</div>
 	</div>
 	<%@include file="/WEB-INF/jsp/imgModal.jsp" %>
+	<%@include file="/WEB-INF/jsp/vidModal.jsp" %>
 	<div class="container">
 		<c:choose>
 			<c:when test="${posts[0] != null}">
@@ -93,10 +94,7 @@
 											</c:if>
 											<c:if test="${not empty posts[status.index].videoSource}">
 												<div class="text-center">
-													<a data-toggle="collapse" data-target="${ '#' += status.index}">Video [+/-]</a>
-													<div id="${status.index}" class="collapse out">
-														
-													</div>
+													<a href="#" class="videoLink" id="${posts[status.index].videoSource}">Video [+/-]</a>
 												</div>
 											</c:if>
 										</div>
@@ -128,10 +126,7 @@
 											</c:if>
 											<c:if test="${not empty posts[status.index+1].videoSource}">
 												<div class="text-center">
-													<a data-toggle="collapse" data-target="${ '#' += status.index+1}">Video [+/-]</a>
-													<div id="${status.index+1}" class="collapse out">
-														
-													</div>
+													<a href="#" class="videoLink" id="${posts[status.index+1].videoSource}">Video [+/-]</a>
 												</div>
 											</c:if>
 										</div>
@@ -163,10 +158,7 @@
 											</c:if>
 											<c:if test="${not empty posts[status.index+2].videoSource}">
 												<div class="text-center">
-													<a data-toggle="collapse" data-target="${ '#' += status.index+2}">Video [+/-]</a>
-													<div id="${status.index+2}" class="collapse out">
-														
-													</div>
+													<a href="#" class="videoLink" id="${posts[status.index+2].videoSource}">Video [+/-]</a>
 												</div>
 											</c:if>
 										</div>

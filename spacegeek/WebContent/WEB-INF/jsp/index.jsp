@@ -13,7 +13,7 @@
 			<%@include file="/WEB-INF/jsp/imgModal.jsp" %>
 			<div class="container-fluid">
 				<div class="jumbotron topStories">
-					<div class="container-fluid">
+					<div class="container-fluid" style="overflow-x:scroll;">
 						<div class="row-fluid">
 							<table class="table table-bordered" style="display:inline; overflow-x:scroll;">
 								<c:forEach var="t" items="${topStories}" varStatus="status">
